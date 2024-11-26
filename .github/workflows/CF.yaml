@@ -78,17 +78,17 @@ jobs:
           sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
  
       - name: Run Trivy Scan
-        run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+        run: trivy fs /home/runner/work/Billing-CF-Project/Billing-CF-Project
  
  
       -  name: Verify build.zip
          run: |
           pwd
-          ls -l /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+          ls -l /home/runner/work/Billing-CF-Project/Billing-CF-Project
       -  name: build docker image
          run:  |
             ls -l
-            docker build -t cold_fusion_app:latest /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+            docker build -t cold_fusion_app:latest /home/runner/work/Billing-CF-Project/Billing-CF-Project
  
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
