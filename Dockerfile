@@ -18,9 +18,9 @@ RUN unzip build.zip -d /app/
 
 
 # Define server port
-ENV BOX_SERVER_WEB_PORT=8080
+ENV BOX_SERVER_WEB_PORT=8090
 
-EXPOSE 8080
+EXPOSE 8090
 
 # Start the ColdFusion server using server.json
 CMD ["box", "server", "start", "cfengine=lucee@5"]
