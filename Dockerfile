@@ -16,6 +16,10 @@ WORKDIR /app
 # Extract the zip file
 RUN unzip build.zip -d /app/
 
+RUN cp -r build/. .
+ 
+RUN rm -rf build build.zip
+
 
 # Define server port
 ENV BOX_SERVER_WEB_PORT=8090
