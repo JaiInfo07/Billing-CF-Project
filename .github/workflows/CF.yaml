@@ -25,19 +25,19 @@ jobs:
       # - name: Checkout Code
       #   uses: actions/checkout@v2
  
-      # - name: Install CommandBox
-      #   run: |
-      #       curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
-      #       echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
-      #       sudo apt-get update && sudo apt-get install commandbox
+      - name: Install CommandBox
+        run: |
+            curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
+            echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
+            sudo apt-get update && sudo apt-get install commandbox
  
-      # - name: Start ColdFusion Server for Testing
-      #   run: |
-      #     box server start cfengine=lucee@5 --no-config
+      - name: Start ColdFusion Server for Testing
+        run: |
+          box server start cfengine=lucee@5 --no-config
  
-      # - name: Run Tests
-      #   run: |
-      #     box testbox run directory=tests.specs recurse=true reporter=json verbose=true
+      - name: Run Tests
+        run: |
+          box testbox run directory=tests.specs recurse=true reporter=json verbose=true
  
       # - name: Checkout source code
       #   uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
@@ -64,8 +64,8 @@ jobs:
       # - name: Checkout Code
       #   uses: actions/checkout@v3
  
-      - name: Verify Checkout
-        run: ls -la
+      # - name: Verify Checkout
+      #   run: ls -la
  
       - name: Install Trivy
         run: |
@@ -78,17 +78,17 @@ jobs:
           sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
  
       - name: Run Trivy Scan
-        run: trivy fs /home/runner/work/Billing-CF-Project/Billing-CF-Project
+        run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
  
  
       -  name: Verify build.zip
          run: |
           pwd
-          ls -l /home/runner/work/Billing-CF-Project/Billing-CF-Project
+          ls -l /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
       -  name: build docker image
          run:  |
             ls -l
-            docker build -t cold_fusion_app:latest /home/runner/work/Billing-CF-Project/Billing-CF-Project
+            docker build -t cold_fusion_app:latest /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
  
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
@@ -100,6 +100,6 @@ jobs:
  
       - name: Run Docker Container
         run: |
-          docker run -d -p 8080:8080 --name cold_fusion_app_container ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
+          docker run -d -p 8888:8888 --name cold_fusion_app_container ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
           docker images 
           docker ps
